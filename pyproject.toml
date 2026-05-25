@@ -20,6 +20,7 @@ dev = ["pytest>=8.0", "ruff>=0.5"]
 
 [project.scripts]
 dsm = "dsm.cli:main"
+dsm-mcp = "mcp.dsm_server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dsm"]

@@ -89,6 +89,60 @@ dsm query "How should an agent debug a workflow failure?"
 dsm stats
 ```
 
+### MCP for Claude Code and other agents
+
+The package exposes a stdio MCP server:
+
+```bash
+dsm-mcp --store .dsm/agent-memory.json
+```
+
+MCP tools exposed to agents:
+
+| Tool | Purpose |
+| :--- | :--- |
+| `dsm_write` | Store semantic memories. |
+| `dsm_query` | Retrieve active PCS context with segments and Skill Kernels. |
+| `dsm_crystallize_skill` | Convert a successful trajectory into a reusable Skill Kernel. |
+| `dsm_route_skills` | Retrieve only procedural kernels. |
+| `dsm_update_from_interaction` | Store query/answer interactions. |
+| `dsm_stats` | Inspect memory size and graph stats. |
+| `dsm_save` | Flush memory to JSON. |
+
+Claude Desktop / Claude Code style config:
+
+```json
+{
+  "mcpServers": {
+    "dsm-persistent-cognition": {
+      "command": "dsm-mcp",
+      "args": ["--store", ".dsm/claude-memory.json"]
+    }
+  }
+}
+```
+
+For local development without installing the script entrypoint:
+
+```bash
+python -m mcp.dsm_server --store .dsm/dev-memory.json
+```
+
+### Agent API
+```python
+from dsm import AgentMemory
+
+memory = AgentMemory.open(".dsm/agent-memory.json")
+memory.remember("Repo uses pytest and ruff.", category_path="Software → Repo")
+memory.crystallize(
+    "Fix a failing Python test",
+    ["Run the failing test.", "Inspect the smallest failing module.", "Patch and rerun."],
+    "The test passes and the repair strategy is reusable.",
+)
+context = memory.recall("How should I fix this Python test failure?")
+print(context.context_text)
+```
+
 ### Python API
 ```python
 from dsm import DynamicSegmentedMemory
@@ -156,6 +210,8 @@ This moves DSM from passive information retrieval toward executable cognition in
 - Skill Crystallization from successful trajectories into reusable kernels.
 - Active context assembly with both information segments and procedural kernels.
 - CLI commands for write, skill crystallization, query, stats and demo.
+- MCP stdio server for Claude Code, Claude Desktop and other MCP-compatible agents.
+- Agent-friendly `AgentMemory` API for Python integrations.
 - Tests for core retrieval, persistence, pruning, skill routing and CLI smoke behavior.
 
 ## Current limits

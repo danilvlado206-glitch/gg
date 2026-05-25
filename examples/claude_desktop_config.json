@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "dsm-persistent-cognition": {
+      "command": "dsm-mcp",
+      "args": [
+        "--store",
+        ".dsm/claude-memory.json"
+      ]
+    }
+  }
+}
