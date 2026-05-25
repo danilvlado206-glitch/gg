@@ -9,14 +9,11 @@ description = "Dynamic Segmented Memory (DSM) engine for scalable LLM context ro
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-authors = [{name = "Nare Labs"}]
-dependencies = [
-    "torch>=2.0",
-    "transformers>=4.40",
-]
+authors = [{name = "Danil Vlado"}]
+dependencies = []
 
 [project.urls]
-Homepage = "https://narelabs.com"
+Homepage = "https://github.com/danilvlado206-glitch/gg"
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.5"]

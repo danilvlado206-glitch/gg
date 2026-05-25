@@ -5,7 +5,7 @@
 [![Status: Research Prototype](https://img.shields.io/badge/Status-Research_Prototype-blueviolet.svg)]()
 
 > **"Infinite memory for all LLMs."** 
-> Developed by [Nare Labs](https://narelabs.com)
+> Stable MVP for persistent cognition experiments.
 
 **DSM (Dynamic Segmented Memory)** is a high-performance memory engine that enables models to reason over datasets with millions of tokens. It replaces dense attention bottlenecks with a hierarchical, graph-based associative memory architecture.
 
@@ -70,9 +70,23 @@ graph TD
 
 ### Installation
 ```bash
-git clone https://github.com/narelabs/dsm
-cd dsm
-pip install -e .
+git clone https://github.com/danilvlado206-glitch/gg
+cd gg
+pip install -e '.[dev]'
+```
+
+### CLI
+```bash
+dsm demo
+dsm write "DSM stores semantic segments with graph links." --category "AI → Memory → DSM"
+dsm skill \
+  --goal "Fix a failing software agent workflow" \
+  --step "Capture the failing command and logs." \
+  --step "Route through related memory and reusable debugging kernels." \
+  --step "Patch the smallest failing path and rerun verification." \
+  --outcome "The workflow is repaired and the procedure is reusable."
+dsm query "How should an agent debug a workflow failure?"
+dsm stats
 ```
 
 ### Python API
@@ -134,9 +148,24 @@ The current API models:
 
 This moves DSM from passive information retrieval toward executable cognition infrastructure: successful planning, debugging and tool-use patterns can be crystallized, persisted and retrieved in later contexts.
 
+## What is implemented in this MVP
+
+- Persistent JSON storage for segments, hierarchy, graph and Skill Kernels.
+- Deterministic local embeddings, so the MVP works offline without API keys.
+- Hierarchical category routing plus vector scoring and graph expansion.
+- Skill Crystallization from successful trajectories into reusable kernels.
+- Active context assembly with both information segments and procedural kernels.
+- CLI commands for write, skill crystallization, query, stats and demo.
+- Tests for core retrieval, persistence, pruning, skill routing and CLI smoke behavior.
+
+## Current limits
+
+- The MVP stores user-provided successful traces; it does not automatically capture private chain-of-thought.
+- Kernel extraction is deterministic and symbolic, not a trained latent distillation model yet.
+- The default index is exact cosine search for stability; ANN backends can be added later.
+
 ## 📜 License
-Released under the **MIT License**. Created by **Nare Labs**.
-[narelabs.com](https://narelabs.com)
+Released under the **MIT License**.
 
 ---
 *Developed for the next generation of autonomous AI engineers.*

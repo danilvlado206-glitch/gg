@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from dsm import DynamicSegmentedMemory
+from dsm.cli import main
 from dsm.memory import sparse_attention_cost
 
 
@@ -101,3 +102,31 @@ def test_skill_persistence_roundtrip(tmp_path: Path) -> None:
     restored = DynamicSegmentedMemory(path)
     assert kernel.id in restored.skill_kernels
     assert restored.route_skills("persistent cognition planning", k=1)[0].kernel.id == kernel.id
+
+
+def test_cli_write_skill_query_and_stats(tmp_path: Path, capsys) -> None:
+    path = tmp_path / "memory.json"
+
+    assert main(["--store", str(path), "write", "DSM persists semantic graph memory."]) == 0
+    assert main(
+        [
+            "--store",
+            str(path),
+            "skill",
+            "--goal",
+            "Debug persistent memory retrieval",
+            "--step",
+            "Reproduce the missing retrieval.",
+            "--step",
+            "Inspect segment and kernel routing scores.",
+            "--outcome",
+            "Retrieval returns the correct procedural context.",
+        ]
+    ) == 0
+    assert main(["--store", str(path), "query", "memory retrieval debugging"]) == 0
+    query_output = capsys.readouterr().out
+
+    assert "SKILL KERNEL" in query_output
+    assert main(["--store", str(path), "stats"]) == 0
+    stats_output = capsys.readouterr().out
+    assert '"skill_kernels": 1' in stats_output

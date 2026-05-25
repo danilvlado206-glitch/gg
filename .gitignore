@@ -1,5 +1,5 @@
 .venv/
-.nare3/
+.dsm/
 __pycache__/
 *.py[cod]
 *.egg-info/
